@@ -7,10 +7,14 @@ with open("challenges2.json","r")as All_questions:
 	Questions_list=json.load(All_questions)
 	# pprint.pprint(Questions_list)
 	print("Your aap is run :)")
+	
+# Getting all the challenges from here
 
 @program.route('/daily_program',methods=["GET"])
 def create():
 	return jsonify(Questions_list)
+
+# Getting challenges through Id
 
 @program.route("/daily_program/<int:diet_id>",methods=["GET"])
 def data_id(diet_id):
@@ -19,7 +23,7 @@ def data_id(diet_id):
 		abort(404)
 	return jsonify(task)
 
-
+# Getting challenges through Randomly
 
 @program.route("/daily_program/random",methods=["GET"])
 def random_coues():
@@ -27,7 +31,7 @@ def random_coues():
 	return jsonify(calet["challenge"])
 
 
-
+# Getting the challenges according to the level
 
 @program.route('/daily_program/<level>',methods=['GET'])
 def get_by_level(level):
@@ -36,32 +40,7 @@ def get_by_level(level):
     level_id=jsonify(string["id"]) 
     return jsonify({"challenge":string["challenge"]})
 
-
-
-
-
-# @program.route('/daily_program/upload', methods=['POST'])
-# def post_by_challenge():
-# 	with open("challenges2.json","r")as All_questions:
-# 		Questions_post=json.load(All_questions)
-# 		ID_get = len(Questions_list)+1
-# 		# print(ID_get)
-# 		Level_get = request.json.get('level')
-# 		Challenge_get = request.json.get('challenge')
-# 		HINT_get = request.json.get('hint')
-
-# 		new_challenge={
-# 			"id": ID_get,
-# 			"level": Level_get,
-# 			"challenge": Challenge_get,
-# 			"hint": HINT_get
-# 		}
-# 		Questions_post.append(new_challenge)
-# 		file_object = open("challenges2.json","w")
-# 		json.dump(Questions_post, file_object)
-
-# 		return jsonify(new_challenge)
-
+# server run this localhost port.
 
 if (__name__)==("__main__"):
 	program.run(debug=True,port=50000)
